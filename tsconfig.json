@@ -1,14 +1,10 @@
 {
+  "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "baseUrl": ".",
-    "target": "esnext",                     /* Specify ECMAScript target version */
-    "module": "esnext",                     /* Specify module code generation */
-    "jsx": "react-native",                  /* Specify JSX code generation */
-    "strict": true,                         /* Enable all strict type-checking options */
-    "esModuleInterop": true,                /* Enable default imports from modules with no default export */
-    "skipLibCheck": true,                   /* Skip type checking of declaration files */
-    "forceConsistentCasingInFileNames": true/* Disallow inconsistently-cased references to the same file */
+    "strict": true
   },
-  "extends": "@tsconfig/react-native/tsconfig.json",
-  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

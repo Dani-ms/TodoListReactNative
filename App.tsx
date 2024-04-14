@@ -1,15 +1,68 @@
-import TodoList from 'TodoList';
+
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import TodoList from './src/todoList.screen/TodoList';
+import { NavigationContainer,RouteProp  } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+
+type RootStackNavigatorParamsList = {
+  Home: undefined;
+  TodoList:undefined;
+  
+};
+
+type TodoScreenRouteProp = RouteProp<RootStackNavigatorParamsList, 'TodoList'>;
+
+type TodoScreenNavigationProp = StackNavigationProp<
+  RootStackNavigatorParamsList,
+  'TodoList'
+>;
+
+type Props = {
+  route: TodoScreenRouteProp;
+  navigation: TodoScreenNavigationProp;
+};
+
+
+function HomeScreen({ navigation }:Props ) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+      <Button
+        title="Go to Todo"
+        onPress={() => navigation.navigate('TodoList')}
+      />
+    </View>
+  );
+}
+
+function TodoScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{padding: 22, fontSize: 32,}}> Todo List App Daniela Moles</Text>
+       <TodoList></TodoList>
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator<RootStackNavigatorParamsList>();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-        <TodoList></TodoList>
+    <>
+      
+      <NavigationContainer>
       <StatusBar style="auto" />
-    </View>
+
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="TodoList" component={TodoScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
 
