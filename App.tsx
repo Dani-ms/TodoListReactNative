@@ -3,31 +3,24 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import TodoList from './src/todoList.screen/TodoList';
-import { NavigationContainer,RouteProp  } from '@react-navigation/native';
+import { NavigationContainer,RouteProp, useNavigation  } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 
-type RootStackNavigatorParamsList = {
+type RootStackParamList = {
   Home: undefined;
-  TodoList:undefined;
-  
+  TodoList: undefined;
 };
 
-type TodoScreenRouteProp = RouteProp<RootStackNavigatorParamsList, 'TodoList'>;
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
+}
 
-type TodoScreenNavigationProp = StackNavigationProp<
-  RootStackNavigatorParamsList,
-  'TodoList'
->;
+function HomeScreen() {
+  const navigation = useNavigation()
 
-type Props = {
-  route: TodoScreenRouteProp;
-  navigation: TodoScreenNavigationProp;
-};
-
-
-function HomeScreen({ navigation }:Props ) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
@@ -48,7 +41,7 @@ function TodoScreen() {
   );
 }
 
-const Stack = createNativeStackNavigator<RootStackNavigatorParamsList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
